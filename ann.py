@@ -1,5 +1,4 @@
 # Importing the libraries
-import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -52,7 +51,7 @@ model.save("ann.h5")
 print("Saved model to disk!")
 
 # Get Validation Accuracy, Validation Loss
-print(history.history['val_accuracy'][-1])
+print(history.history['val_accuracy'][-1] * 100)
 print(history.history['val_loss'][-1])
 
 # Predicting the Test set results
@@ -65,3 +64,9 @@ y_pred
 # Confusion Matrix
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
+recall = (cm[0,0]/(cm[0,0] + cm[1,0]))
+precision = (cm[0,0]/(cm[0,0] + cm[0,1]))
+f1_score = 2*((precision*recall)/(precision+recall))
+
+metrics = pd.DataFrame({'Recall': [recall], 'Precision': [precision], 'F1-Score': [f1_score]})
+metrics
