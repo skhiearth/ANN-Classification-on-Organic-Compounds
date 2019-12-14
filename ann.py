@@ -18,8 +18,8 @@ X = sc.fit_transform(X)
 # Initialising the ANN
 import tensorflow as tf
 model = tf.keras.models.Sequential([
-    tf.keras.layers.Dense(22, input_shape=(166,),
-                          activation=tf.nn.tanh),
+    tf.keras.layers.Dense(20, input_shape=(166,),
+                          activation=tf.nn.tanh),    
     tf.keras.layers.Dense(1, activation=tf.nn.sigmoid)
 ])
 
@@ -27,7 +27,7 @@ model = tf.keras.models.Sequential([
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
 # Fitting the ANN to the Training set
-history = model.fit(X, y, validation_split = 0.2, epochs = 14, verbose = 0)
+history = model.fit(X, y, validation_split = 0.2, epochs = 10, verbose = 0)
 
 # Model Accuracy Visualisation
 plt.plot(history.history['accuracy'])
@@ -62,5 +62,6 @@ y_pred = model.predict(X_test)
 y_pred = y_pred > 0.5
 y_pred
 
+# Confusion Matrix
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
