@@ -26,7 +26,7 @@ model = tf.keras.models.Sequential([
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
 # Fitting the ANN to the Training set
-history = model.fit(X, y, validation_split = 0.2, epochs = 10, verbose = 0)
+history = model.fit(X, y, validation_split = 0.2, epochs = 10)
 
 # Model Accuracy Visualisation
 plt.plot(history.history['accuracy'])
