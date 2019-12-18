@@ -14,6 +14,9 @@ from sklearn.preprocessing import StandardScaler
 sc = StandardScaler()
 X = sc.fit_transform(X)
 
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
+
 # Initialising the ANN
 import tensorflow as tf
 model = tf.keras.models.Sequential([
@@ -26,7 +29,7 @@ model = tf.keras.models.Sequential([
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
 # Fitting the ANN to the Training set
-history = model.fit(X, y, validation_split = 0.2, epochs = 10)
+history = model.fit(X_train, y_train, validation_split = 0.2, epochs = 10)
 
 # Model Accuracy Visualisation
 plt.plot(history.history['accuracy'])
@@ -55,8 +58,6 @@ print(history.history['val_accuracy'][-1] * 100)
 print(history.history['val_loss'][-1])
 
 # Predicting the Test set results
-from sklearn.model_selection import train_test_split
-_, X_test, _, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
 y_pred = model.predict(X_test)
 y_pred = y_pred > 0.5
 y_pred
